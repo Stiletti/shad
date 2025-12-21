@@ -1,4 +1,5 @@
-import { Menu, MessageCircle, TestTubes } from "lucide-react";
+import { Menu, MessageCircle, Moon, Sun, TestTubes } from "lucide-react";
+import { useTheme, type Theme } from "./ThemeProvider";
 import {
   Sidebar,
   SidebarContent,
@@ -10,25 +11,40 @@ import {
   SidebarMenuItem,
 } from "./ui/sidebar";
 
-const homeCategories = [
-  {
-    title: "Dashboard",
-    url: "/dashboard",
-    icon: Menu,
-  },
-  {
-    title: "TestComp",
-    url: "/testcomp",
-    icon: TestTubes
-  },
-  {
-    title: 'sChat',
-    url: '/schat',
-    icon: MessageCircle
-  }
-];
-
 export function AppSidebar() {
+  const { setTheme } = useTheme()
+
+  const homeCategories = [
+    {
+      title: "Dashboard",
+      url: "/dashboard",
+      icon: Menu,
+    },
+    {
+      title: "TestComp",
+      url: "/testcomp",
+      icon: TestTubes
+    },
+    {
+      title: 'sChat',
+      url: '/schat',
+      icon: MessageCircle
+    }
+  ];
+
+  const modeToggle: { title: string; theme: Theme; icon: React.ComponentType }[] = [
+    {
+      title: "Light Mode",
+      theme: "light",
+      icon: Sun,
+    },
+    {
+      title: "Dark Mode",
+      theme: "dark",
+      icon: Moon,
+    },
+  ]
+
   return (
     <Sidebar>
       <SidebarContent>
@@ -43,6 +59,23 @@ export function AppSidebar() {
                       <cat.icon />
                       <span>{cat.title}</span>
                     </a>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel>Mode</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {modeToggle.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton onClick={() => {
+                    setTheme(item.theme)
+                  }}>
+                    <item.icon />
+                    <span>{item.title}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
