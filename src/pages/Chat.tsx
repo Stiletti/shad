@@ -50,7 +50,7 @@ export function Chat() {
 
   return (
     <>
-      <h1 className="text-center">sChat</h1>
+      <h1 className="text-center border-b-4 w-full">sChat</h1>
       <div id="messages">
         {messages.map((msg, index) => (
           <div key={index} className={`message ${msg.self ? "self" : "other"}`}>
@@ -58,7 +58,7 @@ export function Chat() {
           </div>
         ))}
       </div>
-      <div className="flex flex-row items-center justify-center mb-2">
+      <div className="flex flex-row items-center justify-center p-2 gap-2 border-t-4 w-full">
         <input
           id="messageInput"
           type="text"
