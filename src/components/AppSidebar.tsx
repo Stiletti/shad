@@ -8,7 +8,7 @@ import {
   SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem,
+  SidebarMenuItem
 } from "./ui/sidebar";
 
 export function AppSidebar() {
@@ -46,7 +46,7 @@ export function AppSidebar() {
   ]
 
   return (
-    <Sidebar>
+    <Sidebar collapsible="icon">
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Home</SidebarGroupLabel>

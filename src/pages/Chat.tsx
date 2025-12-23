@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./Chat.css";
 
 export function Chat() {
@@ -8,6 +8,7 @@ export function Chat() {
   );
   const [input, setInput] = useState("");
   const [username, setUsername] = useState("");
+  const messagesEndRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     // Nutzernamen per promt eingeben
@@ -36,6 +37,13 @@ export function Chat() {
     };
   }, []);
 
+  // Auitomatisch zur letzten Nachricht scrollen
+  useEffect(() => {
+      if (messagesEndRef.current) {
+        messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    }, [messages]);
+
   function sendMessage() {
     if (socket && input.trim() !== "") {
       const message = JSON.stringify({ username, text: input });
@@ -50,15 +58,16 @@ export function Chat() {
 
   return (
     <>
-      <h1 className="text-center border-b-4 w-full">sChat</h1>
+      <h1 className="text-center border-b-4 p-2 w-full">sChat</h1>
       <div id="messages">
         {messages.map((msg, index) => (
           <div key={index} className={`message ${msg.self ? "self" : "other"}`}>
             {msg.text}
           </div>
         ))}
+      <div ref={messagesEndRef} />
       </div>
-      <div className="flex flex-row items-center justify-center p-2 gap-2 border-t-4 w-full">
+      <div className="flex flex-row items-center justify-center gap-2 border-t-4 p-2 w-full">
         <input
           id="messageInput"
           type="text"
@@ -70,10 +79,10 @@ export function Chat() {
               sendMessage();
             }
           }}
-          className="w-12/13 p-2 border-2 rounded-lg"
+          className="grow p-2 border-2 rounded-lg bg-white/10"
         />
         <button
-          className="p-2 border-2 rounded-lg"
+          className="p-2 border-2 rounded-lg bg-white/30"
           id="sendButton"
           onClick={sendMessage}
         >
