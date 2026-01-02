@@ -1,18 +1,22 @@
 import { Menu, MessageCircle, Moon, Sun, TestTubes } from "lucide-react";
+import { AvatarComp } from "./SidebarFooter/AvatarComp";
 import { useTheme, type Theme } from "./ThemeProvider";
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem
+  SidebarMenuItem,
+  useSidebar
 } from "./ui/sidebar";
 
 export function AppSidebar() {
   const { setTheme } = useTheme()
+  const { open } = useSidebar();
 
   const homeCategories = [
     {
@@ -83,6 +87,15 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <div
+          className={`transition-all duration-300 ${
+            open ? "bg-white/10 p-2 rounded-md" : ""
+          }`}
+        >
+          <AvatarComp username="lol" size="150" />
+        </div>
+      </SidebarFooter>
     </Sidebar>
   );
 }
