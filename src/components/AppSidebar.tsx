@@ -1,6 +1,5 @@
-import { Menu, MessageCircle, Moon, Sun, TestTubes } from "lucide-react";
+import { Menu, MessageCircle, TestTubes } from "lucide-react";
 import { AvatarComp } from "./SidebarFooter/AvatarComp";
-import { useTheme, type Theme } from "./ThemeProvider";
 import {
   Sidebar,
   SidebarContent,
@@ -10,13 +9,10 @@ import {
   SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem,
-  useSidebar
+  SidebarMenuItem
 } from "./ui/sidebar";
 
 export function AppSidebar() {
-  const { setTheme } = useTheme()
-  const { open } = useSidebar();
 
   const homeCategories = [
     {
@@ -35,19 +31,6 @@ export function AppSidebar() {
       icon: MessageCircle
     }
   ];
-
-  const modeToggle: { title: string; theme: Theme; icon: React.ComponentType }[] = [
-    {
-      title: "Light Mode",
-      theme: "light",
-      icon: Sun,
-    },
-    {
-      title: "Dark Mode",
-      theme: "dark",
-      icon: Moon,
-    },
-  ]
 
   return (
     <Sidebar collapsible="icon">
@@ -69,33 +52,16 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        <SidebarGroup>
-          <SidebarGroupLabel>Mode</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {modeToggle.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton onClick={() => {
-                    setTheme(item.theme)
-                  }}>
-                    <item.icon />
-                    <span>{item.title}</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        <div
-          className={`transition-all duration-300 ${
-            open ? "bg-white/10 p-2 rounded-md" : ""
-          }`}
-        >
           <AvatarComp username="lol" size="150" />
-        </div>
       </SidebarFooter>
     </Sidebar>
   );
 }
+
+/*
+className={`transition-all duration-300 ${
+            open ? "bg-white/10 p-2 rounded-md" : ""
+          }`}
+*/
