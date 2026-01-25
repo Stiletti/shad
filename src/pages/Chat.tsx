@@ -20,7 +20,7 @@ export function Chat() {
     }
 
     // Verbindung zum WebSocket-Server herstellen
-    const ws = new WebSocket("ws://192.168.2.138:8080");
+    const ws = new WebSocket("ws://localhost:8080");
     setSocket(ws);
 
     // Nachrichten vom Server empfangen

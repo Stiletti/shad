@@ -1,4 +1,4 @@
-import { ChevronsDownUp, ChevronsUpDown } from "lucide-react";
+import { ChevronsUpDown } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import {
   DropdownMenu,
@@ -15,9 +15,20 @@ type UsernameProps = {
   size: string;
 };
 
+function shortenUsername(username: string) {
+  if (username.length > 3) {
+    return username
+    .split(' ')
+    .map(word => word[0]?.toUpperCase() || '')
+    .join('');
+  } else {
+    return username.toUpperCase();
+  }
+}
+
 export function AvatarComp({ username, size }: UsernameProps) {
   const { open } = useSidebar();
-  const url = `https://fallback.pics/api/v1/avatar/${size}?text=${username}`;
+  const url = `https://fallback.pics/api/v1/avatar/${size}?text=${shortenUsername(username)}`;
 
   return (
     <DropdownMenu>

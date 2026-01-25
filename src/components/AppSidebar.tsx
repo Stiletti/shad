@@ -1,4 +1,4 @@
-import { Menu, MessageCircle, TestTubes } from "lucide-react";
+import { Menu, MessageCircle, ScrollText } from "lucide-react";
 import { AvatarComp } from "./SidebarFooter/AvatarComp";
 import {
   Sidebar,
@@ -9,27 +9,29 @@ import {
   SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem
+  SidebarMenuItem,
 } from "./ui/sidebar";
 
 export function AppSidebar() {
-
   const homeCategories = [
     {
       title: "Dashboard",
       url: "/dashboard",
       icon: Menu,
     },
+  ];
+
+  const chatCategories = [
     {
-      title: "TestComp",
-      url: "/testcomp",
-      icon: TestTubes
+      title: "sChat",
+      url: "/schat",
+      icon: MessageCircle,
     },
     {
-      title: 'sChat',
-      url: '/schat',
-      icon: MessageCircle
-    }
+      title: "Logs",
+      url: "/logs",
+      icon: ScrollText,
+    },
   ];
 
   return (
@@ -52,16 +54,27 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel>sChat</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {chatCategories.map((cat) => (
+                <SidebarMenuItem key={cat.title}>
+                  <SidebarMenuButton asChild>
+                    <a href={cat.url}>
+                      <cat.icon />
+                      <span>{cat.title}</span>
+                    </a>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-          <AvatarComp username="lol" size="150" />
+        <AvatarComp username="max mustermann" size="32" />
       </SidebarFooter>
     </Sidebar>
   );
 }
-
-/*
-className={`transition-all duration-300 ${
-            open ? "bg-white/10 p-2 rounded-md" : ""
-          }`}
-*/
